@@ -1,0 +1,53 @@
+.container {
+	width: 800px;
+}
+
+#backupList {
+	height: 55%;
+	overlow-x: hidden;
+	overflow-y: auto;
+	position: relative;
+	top: 10px;
+	bottom: 25px;
+}
+
+#backupList h2 {
+	text-align: left;
+	margin-left: 25px;
+}
+
+#backupTable {
+	background-color: #4D3324;
+	width: 100%;
+	border: 1px solid black;
+}
+
+#backupTable img {
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+
+#backupTable td {
+	padding: 2px;
+	background-color: #573D2E;
+	color: #FCEEC7;
+}
+
+.button {
+	padding: 0.2em 0.5em 0.15em;
+}
+
+.button img {
+	height: 24px;
+    vertical-align: middle;
+    width: 24px;
+}
+
+#topButtons {
+	padding-top: 10px;
+}
+
+#bottomButtons {
+	padding-top: 25px;
+}

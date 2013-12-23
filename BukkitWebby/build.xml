@@ -1,0 +1,98 @@
+<project name="BukkitWebby" default="buildJar">
+
+	<property name="build.dir" value="build/" />
+	<property name="src.dir" value="src/" />
+	<property name="lib.dir" value="lib/" />
+	<property name="classes.dir" value="bin/" />
+	<property name="bukkit.plugins.dir" value="C:\Users\Kyne\Desktop\Minecraft\plugins" />
+	<property name="rtk.modules.dir" value="C:\Users\Kyne\Desktop\Minecraft\toolkit\modules" />
+	<property name="last.bukkit.url" value="http://dl.bukkit.org/latest-rb/bukkit.jar" />
+	
+	<target name="getBukkit">
+		<get dest="${lib.dir}" src="${last.bukkit.url}" verbose="true" />
+	</target>
+	
+	<target name="clean">
+		<delete dir="${build.dir}" failonerror="no" verbose="true" />
+	</target>
+	
+	<target name="compile">
+		<mkdir dir="${classes.dir}"/>
+		<echo>Compilation des classes...</echo>
+		<javac srcdir="${src.dir}" includeantruntime="false">
+			<classpath location="${lib.dir}">
+				<fileset dir="${lib.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+		<echo>Succès !</echo>
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${build.dir}"/>
+		<echo>Création du jar BukkitWebby...</echo>
+		<jar destfile="${build.dir}/BukkitWebby.jar">
+			<fileset dir="${classes.dir}">
+				<include name="com/kyne/webby/bukkit/**/*.class" />
+				<include name="com/kyne/webby/commons/**/*.class" />
+				<include name="plugin.yml" />
+			</fileset>
+			<zipfileset src="${lib.dir}/commons-io-2.1.jar">
+				<include name="**/*.class" />
+			</zipfileset>
+		</jar>
+		<jar destfile="${build.dir}/RTKWebby.jar">
+			<fileset dir="${classes.dir}">
+				<include name="com/kyne/webby/rtk/**/*.class" />
+				<include name="com/kyne/webby/commons/**/*.class" />
+				<include name="com/drdanick/**/*.class" />
+				<include name="module.txt" />
+			</fileset>
+			<zipfileset src="${lib.dir}/yamlbeans-1.06.jar">
+				<include name="**/*.class" />
+			</zipfileset>
+			<zipfileset src="${lib.dir}/bukkit.jar">
+				<include name="org/json/simple/**/*.class" />
+			</zipfileset>
+			<zipfileset src="${lib.dir}/commons-io-2.1.jar">
+				<include name="**/*.class" />
+			</zipfileset>
+			<zipfileset src="${lib.dir}/commons-lang3-3.1.jar">
+				<include name="**/*.class" />
+			</zipfileset>
+		</jar>
+		<echo>Jars créés !</echo>
+	</target>
+	
+	<target name="deploy">
+		<copy file="${build.dir}/BukkitWebby.jar" todir="${bukkit.plugins.dir}"/>
+		<copy file="${build.dir}/RTKWebby.jar" todir="${rtk.modules.dir}"/>
+		<copy todir="${bukkit.plugins.dir}">
+			<fileset dir=".">
+				<include name="BukkitWebby/**/**" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="release">
+		<delete dir="release" />
+		
+		<mkdir dir="release"/>
+		<mkdir dir="release/plugins"/>
+		<mkdir dir="release/toolkit/"/>
+		<mkdir dir="release/toolkit/modules"/>
+		
+		<copy file="${build.dir}/BukkitWebby.jar" todir="release/plugins"/>
+		<copy file="${build.dir}/RTKWebby.jar" todir="release/toolkit/modules"/>
+		<copy todir="release/plugins">
+			<fileset dir=".">
+				<include name="BukkitWebby/**/**" />
+				<exclude name="BukkitWebby/config.yml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="buildJar" depends="clean,compile,jar,deploy" />
+	<target name="all" depends="getBukkit,clean,compile,jar,deploy" />
+</project>

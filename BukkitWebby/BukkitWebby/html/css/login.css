@@ -1,0 +1,31 @@
+.container {
+	width: 500px;
+}
+
+#headerDiv {
+	margin-top: 5%;
+}
+
+fieldset {
+	text-align: center;
+	width: 400px;
+	margin: auto;
+	border: none;
+}
+
+#loginForm label {
+	margin-right: 6px;
+	color: #FF7B2C;
+	font-weight: bold;
+}
+
+.loginField {
+	width: 205px;
+	padding: 10px 4px 6px 3px;
+	border: 1px solid #FF7B2C;
+	background-color: #E6E6E6;
+	font-size: 16px;
+	color: #4D3324;
+	-webkit-border-radius: .3em;
+	-moz-border-radius: .3em;
+}

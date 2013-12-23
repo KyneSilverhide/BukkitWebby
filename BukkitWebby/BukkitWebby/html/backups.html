@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>BukkitWebby : Backup Management</title>
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/backups.css">
+	<link rel="stylesheet" href="css/tooltips.css">
+	<link rel="stylesheet" href="css/themes/message_default.css">
+	<script type="text/javascript" src="js/prototype.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/scriptaculous.js"></script>
+	<script type="text/javascript" src="js/tooltips.js"></script>
+	<script type="text/javascript" src="js/backups.js"></script>
+	<script type="text/javascript" src="js/message.js"></script>
+</head>
+<body>
+	<div id="headerDiv">
+		<img src="images/BukkitWebby.png" title="Bukkit Webby" alt="Bukkit Webby" />
+	</div>
+	
+	<div class="container">
+		<div id="menu_wrapper" class="brownMenu">
+			<ul id="menu">
+				<li><a href="index">Index</a></li>
+				<li><a href="bukkitconf">Configuration</a></li>
+				<li class="active"><a href="backups">Backups</a></li>
+				<li><a href="about">About</a></li>
+				<li style="float:right;"><a href="logout">Logout</a></li>
+			</ul>
+		</div>
+		
+		<div id="errorSpan" class="error" style="display:none;"></div>
+		<div id="successSpan" class="success" style="display:none;"></div>
+		
+		<div id="topButtons">
+			<button id="backup" type="button" class="button orange" title="Backup all worlds"
+					onclick="sendBackupCommand();">
+					<img src='/images/database_save.png' />&nbsp;Backup&nbsp;
+			</button>
+			<button id="refresh" type="button" class="button orange" title="Refresh list"
+					onclick="refreshList();">
+					<img src='/images/arrow_refresh.png' />&nbsp;Refresh List&nbsp;
+			</button>
+		</div>
+		
+		<div id="backupList"></div>
+		
+		<div id="bottomButtons">
+			<button id="backup" type="button" class="button orange" title="Backup all worlds"
+					onclick="sendBackupCommand();">
+					<img src='/images/database_save.png' />&nbsp;Backup&nbsp;
+			</button>
+			<button id="refresh" type="button" class="button orange" title="Refresh list"
+					onclick="refreshList();">
+					<img src='/images/arrow_refresh.png' />&nbsp;Refresh List&nbsp;
+			</button>
+		</div>
+		
+		
+		<div style="clear:both;"></div>
+	</div>
+	<div id="footerDiv">
+		GNU General Public License<br />
+		<a href="http://www.gnu.org/licenses/licenses.html"><img src="http://www.gnu.org/graphics/gplv3-88x31.png" title="GNU GPL" alt="GNU GPL"/></a>
+	</div>
+</body>
+</html>

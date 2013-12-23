@@ -1,0 +1,53 @@
+.container {
+	width: 800px;
+}
+
+span.value {
+	color: #FCEEC7;
+}
+
+.statusTable {
+	text-align: left;
+	padding-bottom: 8px;
+	font-size: 1.1em;
+	width: 50%;
+	float: left;
+}
+
+.statusTable img {
+	vertical-align:-3px;
+	padding-left: 5px;
+}
+
+.statusTable td {
+	padding: 1px;
+}
+
+.statusTable tr {
+	height: 34px;
+}
+
+
+.statusTable td.leftCol {
+	background-color: #4D3324;
+	color: #FF7B2C;
+	width: 30%;
+}
+
+.statusTable td.rightCol {
+	background-color: #4D3324;
+}
+
+#licenseArea {
+	float:left;
+	height: 300px;
+	width: 74%;
+	color: #FCEEC7;
+	background-color: #4D3324;
+	border: 1px solid #FF7B2C;
+	overflow: auto;
+}
+
+#donators {
+	width:100%;
+}

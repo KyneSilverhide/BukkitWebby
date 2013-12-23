@@ -1,0 +1,29 @@
+#BukkitWebby configuration file (DON'T USE TABULATIONS OR THIS FILE WON'T BE READABLE)
+#-------------------------------------------------------------------------------------
+
+#Webby options
+webby:
+    #Webserver port used to listen to web connections (Ex: http://localhost:25567/login) (default = 25567). MUST BE DIFFERENT THAN ALL OTHER PORTS
+    port: 25567
+    #Local port used by the Webby RTKModule to communicate with the Webby Bukkit Plugin (default = 25564). MUST BE DIFFERENT THAN ALL OTHER PORTS
+    localPort : 25564
+    #Administration login
+    users: 
+        admin: #Simple name, only used to split each user 
+            login: admin
+            password: admin
+    #Timeout in minutes before a user has to relog after inactivity (default = 10 minutes)
+    sessionTimeout: 10
+    #Show user avatars next to their name, using Minotar.net service (requires Internet access)
+    show_avatars: true
+    #Switch the backup. If set to BUKKIT, each world is expected to have its own directory. if set to SMP, a unique directory called 'your_world_name' should exists.
+    backup_mode: BUKKIT
+rtk:
+    #RemoteToolkit port (Same as in remote.properties, default = 25561)
+    port: 25561
+    #Host. You shouldn't have to change this. (Default = localhost) 
+    host: localhost
+    #RemoteToolkit login (See the rtoolkit.sh or .bat files, default = user)
+    login: user
+    #RemoteToolkit password  (See the rtoolkit.sh or .bat files, default = pass)
+    password: pass

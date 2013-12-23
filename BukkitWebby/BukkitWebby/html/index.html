@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>BukkitWebby : Administration</title>
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/tooltips.css">
+	<script type="text/javascript" src="js/prototype.js"></script>
+	<script type="text/javascript" src="js/jsProgressBarHandler.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/scriptaculous.js"></script>
+	<script type="text/javascript" src="js/tooltips.js"></script>
+	<script type="text/javascript" src="js/contextualmenu.js"></script>
+</head>
+<body>
+	<div id="headerDiv">
+		<img src="images/BukkitWebby.png" title="Bukkit Webby"
+			alt="Bukkit Webby" />
+	</div>
+
+	<div class="container">
+		<div id="menu_wrapper" class="brownMenu">
+			<ul id="menu">
+				<li class="active"><a href="index">Index</a></li>
+				<li><a href="bukkitconf">Configuration</a></li>
+				<li><a href="backups">Backups</a></li>
+				<li><a href="about">About</a></li>
+				<li style="float:right;"><a href="logout">Logout</a></li>
+			</ul>
+		</div>
+
+		<div id="errorSpan" class="error">message here</div>
+		<div id="warningSpan" class="success">message here</div>
+		<div id="successSpan" class="warning">message here</div>
+
+		<div id="commandButtons" style="padding: 8px">
+			<button id="start" type="button" class="button orange" title="Start Bukkit" style="display:none;"
+				onclick="sendRTKCommand('start', 'UNHOLD');">
+					<img src="images/control_play.png" title="Start"/>&nbsp;Start&nbsp;
+					<span class="processSpan" id="start_processing"></span>
+			</button>
+			<!-- <button id="stop" type="button" class="button orange" title="Stop Bukkit" style="display:none;"
+				onclick="sendRTKCommand('stop', 'STOP');">
+				Stop&nbsp; <span class="processSpan" id="stop_processing"></span>
+			</button> -->
+			<button id="hold" type="button" class="button orange" title="Hold Bukkit (Stops the server but keeps the wrapper alive)" style="display:none;"
+				onclick="sendRTKCommand('hold', 'HOLD');">
+				<img src="images/control_pause.png" title="Hold"/>&nbsp;Hold&nbsp; <span class="processSpan" id="hold_processing"></span>
+			</button>
+			<button id="restart" type="button" class="button orange" title="Restart Bukkit. All worlds will be saved"
+				onclick="sendRTKCommand('restart', 'RESTART');">
+				<img src="images/control_repeat.png" title="Restart"/>&nbsp;Restart&nbsp; <span class="processSpan" id="restart_processing"></span>
+			</button>
+			<button id="reload" type="button" class="button orange" title="Reload Bukkit (refresh configurations and plugins)"
+				onclick="sendRTKCommand('reload', 'RELOAD');">
+				<img src="images/arrow_refresh.png" title="Reload"/>&nbsp;Reload&nbsp; <span class="processSpan" id="reload_processing"></span>
+			</button>
+			<button id="save" type="button" class="button orange" title="Save all worlds"
+				onclick="sendRTKCommand('save', 'SAVE');">
+				<img src="images/disk.png" title="Save"/>&nbsp;Save&nbsp; <span class="processSpan" id="save_processing"></span>
+			</button>
+			<button id="backup" type="button" class="button orange" title="Backup all worlds"
+				onclick="sendBackupCommand();">
+				<img src="images/database_save.png" title="Backup"/>&nbsp;Backup&nbsp; <span class="processSpan" id="backup_processing"></span>
+			</button>
+		</div>
+
+		<table class="statusTable">
+			<tr>
+				<td class="leftCol">Server status :</td>
+				<td class="rightCol"><span class="value" id="serverStatus">Connecting...</span><img
+					id="statusIcon" src="images/status_LOADING2.gif" alt="" /></td>
+			</tr>
+			<tr>
+				<td class="leftCol">Bukkit Version :</td>
+				<td class="rightCol"><span class="value" id="bukkitVersion"></span></td>
+			</tr>
+			<tr>
+				<td class="leftCol">Players : (online/total)</td>
+				<td class="rightCol"><span class="value" id="curPlayers"></span><span
+					style="color: #FF7B2C">/</span><span class="value" id="maxPlayers"></span></td>
+			</tr>
+		</table>
+		<table class="statusTable">
+			<tr>
+				<td class="leftCol">Last update :</td>
+				<td class="rightCol"><span class="value" id="lastUpdate"></span></td>
+			</tr>
+			<tr>
+				<td class="leftCol">Memory Usage (RAM) :</td>
+				<td class="rightCol"><span class="value" id="memory"></span>
+				<span class="progressBar" id="memoryBar">80%</span></td>
+			</tr>
+			<tr>
+				<td class="leftCol">Total Memory (RAM) :</td>
+				<td class="rightCol"><span class="value" id="totalMemory"></span></td>
+			</tr>
+		</table>
+
+		<div class="h2container">
+			<h1 class="h2bev">Server Logs<span id="h1span"><input type="checkbox" id="loglock" /> Disable log auto-scrolling ?</span>
+			<span id="playerListSpan" style="float:right; margin-right: 100px">Player List</span>
+			</h1>
+		</div>
+		
+		<div id="logsAndList" style="width: 100%">
+			<div id="logArea">
+				<!--  LOG HERE -->
+			</div>
+			<div id="playerList">
+				<input type="hidden" id="selectedPlayer" value=""/>
+				<ul id="ulPlayerList"></ul>
+			</div>
+			<div id="hiddenPlayerMenu">
+				<h3 id="hiddenPlayerName" style="margin: 5px; float:left;"></h3><span style="float:right; margin-right:20px; margin-top: 6px;">&nbsp;<a href="javascript:HideContent('hiddenPlayerMenu')">[Close]</a></span>
+				<img id="userAvatar" style="clear:both; margin:auto auto auto 30%; float:left; border: 1px solid black;" alt="title" src="" alt="title"/>
+				<ul>
+					<li><button type="button" class="button orange" title="Turns a player into a server operator."
+						onclick="sendCommandForCurrentPlayer('op');" style="margin-left: 10px;">
+						<img src="images/administrator.png" width="16px" height="16px" alt="Promote"/>Promote</button>
+					</li>
+					<li><button type="button" class="button orange" title="Removes server operator status from player."
+						onclick="sendCommandForCurrentPlayer('deop');" style="margin-left: 10px;">
+						<img src="images/administrator_crossed.png" width="16px" height="16px" alt="Demote"/>Demote</button>
+					</li>
+					<li><button type="button" class="button orange" title="Removes a player from the server."
+						onclick="sendCommandForCurrentPlayer('kick');" style="margin-left: 10px;">
+						<img src="images/door_in.png" width="16px" height="16px" alt="Promote"/>Kick</button>
+					</li>
+					<li><button type="button" class="button orange" title="Bans a player from the server."
+						onclick="sendCommandForCurrentPlayer('ban');" style="margin-left: 10px;">
+						<img src="images/error.png" width="16px" height="16px" alt="Promote"/>Ban</button>
+					</li>
+					<li><button type="button" class="button orange" title="Send a private message to another player."
+						onclick="sendCommandForCurrentPlayer('tell');" style="margin-left: 10px;">
+						<img src="images/events.png" width="16px" height="16px" alt="Promote"/>Tell</button>
+						<input type="text" id="whispContent" value=""/>
+					</li>
+					<li><button type="button" class="button orange" title="Heal the player to its maximum health"
+						onclick="sendCommandForCurrentPlayer('heal');" style="margin-left: 10px;">
+						<img src="images/heart.png" width="16px" height="16px" alt="Promote"/>Heal</button>
+					</li>
+				</ul>
+			</div>
+			<input type="text" id="customCommandField"/>
+			<button type="button" class="button orange" title="Send the command to Bukkit. You could also use [RETURN]"
+				onclick="sendBukkitCommand();" style="margin-left: 10px; width: 12%">Send</button>
+		</div>
+	</div>
+	<div id="footerDiv">
+		GNU General Public License<br />
+		<a href="http://www.gnu.org/licenses/licenses.html"><img src="http://www.gnu.org/graphics/gplv3-88x31.png" title="GNU GPL" alt="GNU GPL"/></a>
+	</div>
+</body>
+</html>

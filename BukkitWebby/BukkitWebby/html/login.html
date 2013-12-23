@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF8">
+	<title>BukkitWebby : Login</title>
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/login.css">
+	<script type="text/javascript" src="js/prototype.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/login.js"></script>
+</head>
+<body>
+	<div id="headerDiv">
+		<img src="images/BukkitWebby.png" title="Bukkit Webby" alt="Bukkit Webby" />
+	</div>
+	<div class="h1container"><h1 class="h1bev">Login</h1></div>
+	
+	<form id="loginForm" name="loginForm" class="container" action="login" method="POST">
+		<div id="errorSpan" class="error">error here</div>
+		<fieldset>
+			<label for="loginField">Username</label>
+			<input id="loginField" class="loginField" name="login" type="text" />
+		</fieldset>
+		<fieldset >
+			<label for="passField">Password</label>
+			<input id="passField" class="loginField" name="password" type="password" />
+		</fieldset>
+		<fieldset >
+			<input class="button orange" type="submit" value="Let's go!" />
+		</fieldset>
+	</form>
+	<div id="footerDiv">
+		GNU General Public License<br />
+		<a href="http://www.gnu.org/licenses/licenses.html"><img src="http://www.gnu.org/graphics/gplv3-88x31.png" title="GNU GPL" alt="GNU GPL"/></a>
+	</div>
+</body>
+</html>

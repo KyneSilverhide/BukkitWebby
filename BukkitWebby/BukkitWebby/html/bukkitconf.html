@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>BukkitWebby : Configuration</title>
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/bukkitconf.css">
+	<link rel="stylesheet" href="css/tooltips.css">
+	<script type="text/javascript" src="js/prototype.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/scriptaculous.js"></script>
+	<script type="text/javascript" src="js/tooltips.js"></script>
+	<script type="text/javascript" src="js/bukkitconf.js"></script>
+</head>
+<body>
+	<div id="headerDiv">
+		<img src="images/BukkitWebby.png" title="Bukkit Webby"
+			alt="Bukkit Webby" />
+	</div>
+
+	<div class="container">
+		<div id="menu_wrapper" class="brownMenu">
+			<ul id="menu">
+				<li><a href="index">Index</a></li>
+				<li class="active"><a href="bukkitconf">Configuration</a></li>
+				<li><a href="backups">Backups</a></li>
+				<li><a href="about">About</a></li>
+				<li style="float:right;"><a href="logout">Logout</a></li>
+			</ul>
+		</div>
+		
+		<div id="errorSpan" class="error" style="display:none;"></div>
+		<div id="successSpan" class="success" style="display:none;"></div>
+
+		<form id="confForm" name="confForm" action="bukkitconf" method="POST" accept-charset="UTF-8">
+		
+			<button id="start" type="button" class="button orange" title="Save"	onclick="serializeAndSubmit()" style="margin-top: 20px;">
+				<img src="images/disk.png" title="Save"/>&nbsp;Save&nbsp;
+			</button>
+			
+			<div class="box" id="bukkitConfBox">
+				<label>
+					<span>Server IP</span>
+					<img src="images/info.png" class="infoTT" title="Set this if you want the server to bind to a particular IP. It is strongly recommended that you leave server-ip blank!"/>
+					<input id="server-ip" name="server-ip" class="input_text" type="text"/>
+				</label>
+				<label>
+					<span>Server port</span>
+					<img src="images/info.png" class="infoTT" title="Changes the port the server is hosting on. This port must be forwarded if the server is going through a router"/>
+					<input id="server-port" name="server-port" class="input_text" type="text"/>
+				</label>
+				<label>
+					<span>Level name</span>
+					<img src="images/info.png" class="infoTT" title="The level-name value will be used as world name and as folder name. Changing this value will switch the level or create a new one, but it won't rename your current world"/>
+					<input id="level-name" name="level-name" class="input_text" type="text" />
+				</label>
+				<label>
+					<span>Level seed</span>
+					<img src="images/info.png" class="infoTT" title="Add a seed for your world. Same as singleplayer." />
+					<input id="level-seed" name="level-seed" class="input_text" type="text" />
+				</label>
+				<label>
+					<span>Level type</span>
+					<img src="images/info.png" class="infoTT" title="Determines the type of map that is generated. DEFAULT - Standard world with hills, valleys, water, etc. FLAT - A flat world with no features, meant for building. LARGEBIOMES - Same as default but all biomes are larger." />
+					<input type="radio" class="input_radio" id="level-typeDEFAULT" name="level-type" value="DEFAULT"> DEFAULT
+					<input type="radio" class="input_radio" id="level-typeFLAT" name="level-type" value="FLAT"> FLAT
+					<input type="radio" class="input_radio" id="level-typeLARGEBIOMES" name="level-type" value="LARGEBIOMES"> LARGEBIOMES
+				</label>
+				<label>
+					<span>Message of the day</span>
+					<img src="images/info.png" class="infoTT" title="This is the message that is displayed in the server list of the client, below the name" />
+					<input id="motd" name="motd" class="input_text" type="text" />
+				</label>
+				<label>
+					<span>Difficulty</span>
+					<img src="images/info.png" class="infoTT" title="Defines the difficulty (such as damage dealt by mobs and the way hunger and poison affects players) of the server. Setting spawn-monsters=false overrides this setting and uses difficulty=0" />
+					<input type="radio" class="input_radio" id="difficulty0" name="difficulty" value="0"> Peaceful
+					<input type="radio" class="input_radio" id="difficulty1" name="difficulty" value="1"> Easy
+					<input type="radio" class="input_radio" id="difficulty2" name="difficulty" value="2"> Normal
+					<input type="radio" class="input_radio" id="difficulty3" name="difficulty" value="3"> Hard
+				</label>
+				<label>
+					<span>Game mode</span>
+					<img src="images/info.png" class="infoTT" title="Defines the mode of gameplay. Same as singleplayer" />
+					<input type="radio" class="input_radio" id="gamemode0" name="gamemode" value="0"> Survival
+					<input type="radio" class="input_radio" id="gamemode1" name="gamemode" value="1"> Creative
+				</label>
+				<label>
+					<span>Hell world ?</span>
+					<img src="images/info.png" class="infoTT" title="Generate a nether world instead" />
+					<input type="radio" class="input_radio" id="hellWorldTrue" name="hellworld" value="true"> Yes
+					<input type="radio" class="input_radio" id="hellWorldFalse" name="hellworld" value="false"> No
+				</label>
+				<label>
+					<span>Allow nether ?</span>
+					<img src="images/info.png" class="infoTT" title="Allows players to travel to the Nether." />
+					<input type="radio" class="input_radio" id="allowNetherTrue" name="allow-nether" value="true"> Yes
+					<input type="radio" class="input_radio" id="allowNetherFalse" name="allow-nether" value="false"> No
+				</label>
+				<label>
+					<span>Max players</span>
+					<img src="images/info.png" class="infoTT" title="The max numbers of players that can play on the server at the same time. Note that if more players are on the server it will use more resources. Note also, op player connections are not supposed to count against the max players, but ops currently cannot join a full server." />
+					<span id="max-playersTrack" class="sliderTrack" style="width:200px; height:9px;">
+						<span id="max-playersHandle" class="sliderHandle" style="width:19px; height:20px;">
+							<img src="images/slider-images-handle.png" />
+						</span>
+					</span>
+					<input id="max-players" name="max-players" class="input_text" type="text" 
+						   style="width:40px;margin-left:-130px;_margin-left:0px;" onkeyup="setSliderValue(maxPlayersSlider, this.value, 'max-players');"/>
+				</label>
+				<label>
+					<span>View distance</span>
+					<img src="images/info.png" class="infoTT" title="The amount of world data the server sends the client, measured in chunks in each direction of the player. The server-side viewing distance. The 'Far' viewing distance is 9 chunks." />
+					<span id="view-distanceTrack" class="sliderTrack" style="width:200px; height:9px;">
+						<span id="view-distanceHandle" class="sliderHandle" style="width:19px; height:20px;">
+							<img src="images/slider-images-handle.png" />
+						</span>
+					</span>
+				    <input id="view-distance" name="view-distance" class="input_text" type="text"
+						   style="width:40px;margin-left:-130px;_margin-left:0px;" onkeyup="setSliderValue(viewDistanceSlider, this.value, 'view-distance');"/>
+				</label>
+				<label>
+					<span>Max build height</span>
+					<img src="images/info.png" class="infoTT" title="The maximum height in which building is allowed. Terrain may still naturally generate above a low height limit." />
+					<span id="max-build-heightTrack" class="sliderTrack" style="width:200px; height:9px;">
+						<span id="max-build-heightHandle" class="sliderHandle" style="width:19px; height:20px;">
+							<img src="images/slider-images-handle.png" />
+						</span>
+					</span>
+				    <input id="max-build-height" name="max-build-height" class="input_text" type="text"
+						   style="width:40px;margin-left:-130px;_margin-left:0px;" onkeyup="setSliderValue(maxHeightSlider, this.value, 'max-build-height');"/>
+				</label>
+				<label>
+					<span>Online mode ?</span>
+					<img src="images/info.png" class="infoTT" title="Server checks connecting players against minecraft's account database. Only set this to false if your server is not connected to the Internet. Hackers with fake accounts can connect if this is set to false! If minecraft.net is down or inaccessible, no players will be able to connect if this is set to true." />
+					<input type="radio" class="input_radio" id="onlineModeTrue" name="online-mode" value="true"> Yes
+					<input type="radio" class="input_radio" id="onlineModeFalse" name="online-mode" value="false"> No
+				</label>
+				<label>
+					<span>Whitelist ?</span>
+					<img src="images/info.png" class="infoTT" title="Enable a white list on the server. With a white list enabled, users not on the white list will be unable to connect." />
+					<input type="radio" class="input_radio" id="whiteListTrue" name="white-list" value="true"/> Yes
+					<input type="radio" class="input_radio" id="whiteListFalse" name="white-list" value="false"/> No
+				</label>
+				<label>
+					<span>Spawn monsters ?</span>
+					<img src="images/info.png" class="infoTT" title="Set true if you want monsters (Creeper, Skeleton, Zombie, Enderman, Spiders, ...) to be spawned at night, false if you don't." />
+					<input type="radio" class="input_radio" id="spawnMonsterTrue" name="spawn-monsters" value="true"> Yes
+					<input type="radio" class="input_radio" id="spawnMonsterFalse" name="spawn-monsters" value="false"> No
+				</label>
+				<label>
+					<span>Spawn animals ?</span>
+					<img src="images/info.png" class="infoTT" title="Set true if you want animals (Cow, Pig, Sheep, Squid, ?Wolf?) to be spawned, false if you don't." />
+					<input type="radio" class="input_radio" id="spawnAnimalsTrue" name="spawn-animals" value="true"> Yes
+					<input type="radio" class="input_radio" id="spawnAnimalsFalse" name="spawn-animals" value="false"> No
+				</label>
+				<label>
+					<span>Spawn NPCS ?</span>
+					<img src="images/info.png" class="infoTT" title="Determines if non-player characters (NPCs) will be spawned. true - Enabled. NPCs will spawn. false - Disabled. No NPCs." />
+					<input type="radio" class="input_radio" id="spawnNpcsTrue" name="spawn-npcs" value="true"> Yes
+					<input type="radio" class="input_radio" id="spawnNpcsFalse" name="spawn-npcs" value="false"> No
+				</label>
+				<label>
+					<span>Generate structures ?</span>
+					<img src="images/info.png" class="infoTT" title="Defines whether structures (such as NPC Villages) will be generated. false - Structures will not be generated in new chunks. true - Structures will be generated in new chunks." />
+					<input type="radio" class="input_radio" id="generateStructuresTrue" name="generate-structures" value="true"> Yes
+					<input type="radio" class="input_radio" id="generateStructuresFalse" name="generate-structures" value="false"> No
+				</label>
+				<label>
+					<span>PVP ?</span>
+					<img src="images/info.png" class="infoTT" title="Enable PvP on the server. Note: Hitting a player while having PvP set to false and having tamed wolves will still cause the wolves to attack the player who was hit." />
+					<input type="radio" class="input_radio" id="pvpTrue" name="pvp" value="true"> Yes
+					<input type="radio" class="input_radio" id="pvpFalse" name="pvp" value="false"> No
+				</label>
+				<label>
+					<span>Allow flight ?</span>
+					<img src="images/info.png" class="infoTT" title="Will allow users to use flight on your server while in survival mode, if they have installed a mod that provides flight. It has no effect in creative mode" />
+					<input type="radio" class="input_radio" id="allowFlightTrue" name="allow-flight" value="true"> Yes
+					<input type="radio" class="input_radio" id="allowFlightFalse" name="allow-flight" value="false"> No
+				</label>
+				<label>
+					<span>Enable query</span>
+					<img src="images/info.png" class="infoTT" title="Enables GameSpy4 protocol server listener. Used to get information about server." />
+					<input type="radio" class="input_radio" id="queryTrue" name="enable-query" value="true"> Yes
+					<input type="radio" class="input_radio" id="queryFalse" name="enable-query" value="false"> No
+				</label>
+				<label>
+					<span>Query port</span>
+					<img src="images/info.png" class="infoTT" title="Sets the port for the query server (see Enable query)." />
+					<input id="query.port" name="query.port" class="input_text" type="text" />
+				</label>
+				<label>
+					<span>Enable RCON</span>
+					<img src="images/info.png" class="infoTT" title="Enables remote access to the server console." />
+					<input type="radio" class="input_radio" id="rconTrue" name="enable-rcon" value="true"> Yes
+					<input type="radio" class="input_radio" id="rconFalse" name="enable-rcon" value="false"> No
+				</label>
+				<label>
+					<span>RCON port</span>
+					<img src="images/info.png" class="infoTT" title="Sets the port to rcon." />
+					<input id="rcon.port" name="rcon.port" class="input_text" type="text" />
+				</label>
+				<label>
+					<span>RCON password</span>
+					<img src="images/info.png" class="infoTT" title="Sets the password to rcon." />
+					<input id="rcon.password" name="rcon.password" class="input_text" type="text" />
+				</label>
+				<input type="hidden" id="dataConf" name="dataConf" value=""/>
+			</div>
+			<button id="start" type="button" class="button orange" title="Save"	onclick="serializeAndSubmit()" style="margin-top: 20px;">
+				<img src="images/disk.png" title="Save"/>&nbsp;Save&nbsp;
+			</button>
+		</form>
+	</div>
+	<div id="footerDiv">
+		GNU General Public License<br />
+		<a href="http://www.gnu.org/licenses/licenses.html"><img src="http://www.gnu.org/graphics/gplv3-88x31.png" title="GNU GPL" alt="GNU GPL"/></a>
+	</div>
+</body>
+</html>
