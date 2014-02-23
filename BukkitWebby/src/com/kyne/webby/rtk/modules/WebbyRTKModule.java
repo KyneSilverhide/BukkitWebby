@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Handler;
@@ -317,7 +318,15 @@ public class WebbyRTKModule extends Module implements RTKListener {
 	public List<String> readConsoleLog() {
 		final List<String> logLines = new ArrayList<String>();
 		String line = "";
-		final File logFile = new File("server.log");
+		File logFile = new File("logs/latest.log");
+		if(!logFile.exists()) {
+			// Switch back to old log system
+			logFile = new File("server.log");
+			if(!logFile.exists()) {
+				LogHelper.error("Unable to find the log file");
+				return Arrays.asList("Unable to find the log file");
+			}
+		}
 		RandomAccessFile randomFile = null;
 		try{
 			randomFile = new RandomAccessFile(logFile, "r");
