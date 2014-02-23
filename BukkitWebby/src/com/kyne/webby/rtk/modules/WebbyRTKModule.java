@@ -192,8 +192,10 @@ public class WebbyRTKModule extends Module implements RTKListener {
 		.append(YAMLINDENT + "sessionTimeout: 10\n")
 		.append(YAMLINDENT + "#Show user avatars next to their name, using Minotar.net service (requires Internet access) \n")
 		.append(YAMLINDENT + "show_avatars: true\n")
-		.append(YAMLINDENT + "#Switch the backup. If set to BUKKIT, each world is expected to have its own directory. if set to SMP, a unique directory called 'your_world_name' should exists.")
-		.append(YAMLINDENT + "backupMode: BUKKIT")
+		.append(YAMLINDENT + "#Switch the backup. If set to BUKKIT, each world is expected to have its own directory. if set to SMP, a unique directory called 'your_world_name' should exists.\n")
+		.append(YAMLINDENT + "backupMode: BUKKIT\n")
+		.append(YAMLINDENT + "#Switch the log. If set to OLD, Bukkit Webby will use the server.log file. If set to NEW (default), it will look into logs/latest.log\n")
+		.append(YAMLINDENT + "backupMode: NEW\n")
 		.append("\n")
 		.append("rtk:\n")
 		.append(YAMLINDENT + "#RemoteToolkit port (Same as in remote.properties, default = 25561)\n")
@@ -228,6 +230,7 @@ public class WebbyRTKModule extends Module implements RTKListener {
 	 * @throws IOException
 	 */
 	public void handleCommand(final String command) throws IOException {
+		LogHelper.debug("Sendng command " + command);
 		try {
 			// Bukkit commands
 			if("RELOAD".equalsIgnoreCase(command)) {
@@ -315,18 +318,24 @@ public class WebbyRTKModule extends Module implements RTKListener {
 		}
 	}
 
-	public List<String> readConsoleLog() {
+	public List<String> readConsoleLog(final LogMode logMode) {
 		final List<String> logLines = new ArrayList<String>();
 		String line = "";
-		File logFile = new File("logs/latest.log");
-		if(!logFile.exists()) {
-			// Switch back to old log system
+		
+		File logFile = null;
+		if(logMode == LogMode.NEW) {
+			logFile = new File("logs/latest.log");
+		} else if(logMode == LogMode.OLD){
 			logFile = new File("server.log");
-			if(!logFile.exists()) {
-				LogHelper.error("Unable to find the log file");
-				return Arrays.asList("Unable to find the log file");
-			}
+		} else {
+			throw new UnsupportedOperationException("Unsupported log mode " + logMode);
 		}
+
+		if(!logFile.exists()) {
+			LogHelper.error("Unable to find the log file at " + logFile.getAbsolutePath());
+			return Arrays.asList("Unable to find the log file");
+		}
+		
 		RandomAccessFile randomFile = null;
 		try{
 			randomFile = new RandomAccessFile(logFile, "r");
@@ -373,5 +382,9 @@ public class WebbyRTKModule extends Module implements RTKListener {
 			this.rtkInterface = RTKInterface.createRTKInterface(rtkPort, host, user, password);
 		}
 		return this.rtkInterface;
+	}
+	
+	public enum LogMode {
+		OLD, NEW;
 	}
 }

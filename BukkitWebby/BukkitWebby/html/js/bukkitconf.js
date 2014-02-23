@@ -61,11 +61,11 @@ function loadFields() {
 		requestHeaders: {Accept: 'application/json'},
 		onSuccess: function(transport) {
 			var json = transport.responseText.evalJSON(true);
-			$("server-ip").value = json["server-ip"];
-			$("server-port").value = json["server-port"];
-			$("level-name").value = json["level-name"];
-			$("level-seed").value = json["level-seed"];
-			$("motd").value = json["motd"];
+			$("server-ip").value = strValue(json, "server-ip");
+			$("server-port").value = strValue(json, "server-port");
+			$("level-name").value = strValue(json, "level-name");
+			$("level-seed").value = strValue(json, "level-seed");
+			$("motd").value = strValue(json, "motd");
 			
 			$("gamemode" + json["gamemode"]).checked = true;
 			$("difficulty" + json["difficulty"]).checked = true;
@@ -135,11 +135,20 @@ function loadFields() {
 				$("rconFalse").checked = true;
 			}
 			$("level-type" + json["level-type"]).checked = true;
-			$("rcon.port").value = json["rcon.port"];
-			$("rcon.password").value = json["rcon.password"];
-			$("query.port").value = json["query.port"];
+			$("rcon.port").value = strValue(json, "rcon.port");
+			$("rcon.password").value = strValue(json, "rcon.password");
+			$("query.port").value = strValue(json, "query.port");
 		}
 	});
+}
+
+function strValue(json, key) {
+	if(!Object.isUndefined(json[key]) && json[key] != "undefined") {
+		// Key exists, and is not "corrupted" with the wrong value (from previous versions)
+		return json[key];
+	} else {
+		return "";
+	}
 }
 
 function serializeAndSubmit() {

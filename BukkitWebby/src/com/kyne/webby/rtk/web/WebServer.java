@@ -54,6 +54,7 @@ import com.kyne.webby.commons.WebbyYAMLParser;
 import com.kyne.webby.commons.protocol.ServerInfos;
 import com.kyne.webby.commons.protocol.WebbyPlayer;
 import com.kyne.webby.rtk.modules.WebbyRTKModule;
+import com.kyne.webby.rtk.modules.WebbyRTKModule.LogMode;
 
 public class WebServer extends Thread {
 
@@ -219,7 +220,8 @@ public class WebServer extends Thread {
 		final Map<String, Object> data = new HashMap<String, Object>();
 		data.put("status", this.rtkModule.askForServerStatus().name());
 		final JSONArray logLines = new JSONArray();
-		for(final String line : this.rtkModule.readConsoleLog()) {
+		LogMode logMode = LogMode.valueOf(WebbyYAMLParser.getString("webby.logMode", rtkModule.getPluginConf(), "NEW"));
+		for(final String line : this.rtkModule.readConsoleLog(logMode)) {
 			final JSONObject lineJSON = new JSONObject();
 			lineJSON.put("line", line);
 			lineJSON.put("isWarn", line.contains("[WARNING]"));
