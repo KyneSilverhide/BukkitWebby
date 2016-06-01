@@ -17,7 +17,10 @@ webby:
     #Show user avatars next to their name, using Minotar.net service (requires Internet access)
     show_avatars: true
     #Switch the backup. If set to BUKKIT, each world is expected to have its own directory. if set to SMP, a unique directory called 'your_world_name' should exists.
-    backup_mode: BUKKIT
+    backupmode: BUKKIT
+    #Switch the log. If set to OLD, Bukkit Webby will use the server.log file. If set to NEW (default), it will look into logs/latest.log
+    logMode: NEW
+    
 rtk:
     #RemoteToolkit port (Same as in remote.properties, default = 25561)
     port: 25561

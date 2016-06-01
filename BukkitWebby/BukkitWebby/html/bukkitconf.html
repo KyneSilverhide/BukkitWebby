@@ -66,6 +66,7 @@
 					<input type="radio" class="input_radio" id="level-typeDEFAULT" name="level-type" value="DEFAULT"> DEFAULT
 					<input type="radio" class="input_radio" id="level-typeFLAT" name="level-type" value="FLAT"> FLAT
 					<input type="radio" class="input_radio" id="level-typeLARGEBIOMES" name="level-type" value="LARGEBIOMES"> LARGEBIOMES
+                    <input type="radio" class="input_radio" id="level-typeAMPLIFIED" name="level-type" value="AMPLIFIED"> AMPLIFIED
 				</label>
 				<label>
 					<span>Message of the day</span>
@@ -85,13 +86,15 @@
 					<img src="images/info.png" class="infoTT" title="Defines the mode of gameplay. Same as singleplayer" />
 					<input type="radio" class="input_radio" id="gamemode0" name="gamemode" value="0"> Survival
 					<input type="radio" class="input_radio" id="gamemode1" name="gamemode" value="1"> Creative
+                    <input type="radio" class="input_radio" id="gamemode2" name="gamemode" value="2"> Adventure
+                    <input type="radio" class="input_radio" id="gamemode2" name="gamemode" value="3"> Spectator
 				</label>
-				<label>
+				<!--label>
 					<span>Hell world ?</span>
 					<img src="images/info.png" class="infoTT" title="Generate a nether world instead" />
 					<input type="radio" class="input_radio" id="hellWorldTrue" name="hellworld" value="true"> Yes
 					<input type="radio" class="input_radio" id="hellWorldFalse" name="hellworld" value="false"> No
-				</label>
+				</label-->
 				<label>
 					<span>Allow nether ?</span>
 					<img src="images/info.png" class="infoTT" title="Allows players to travel to the Nether." />
@@ -205,6 +208,58 @@
 					<span>RCON password</span>
 					<img src="images/info.png" class="infoTT" title="Sets the password to rcon." />
 					<input id="rcon.password" name="rcon.password" class="input_text" type="text" />
+				</label>
+                <label>
+					<span>Spawn Protection</span>
+					<img src="images/info.png" class="infoTT" title="Determines the radius of the spawn protection." />
+					<span id="spawn-protectionTrack" class="sliderTrack" style="width:200px; height:9px;">
+						<span id="spawn-protectionHandle" class="sliderHandle" style="width:19px; height:20px;">
+							<img src="images/slider-images-handle.png" />
+						</span>
+					</span>
+				    <input id="spawn-protection" name="spawn-protection" class="input_text" type="text"
+						   style="width:40px;margin-left:-130px;_margin-left:0px;" onkeyup="setSliderValue(viewDistanceSlider, this.value, 'spawn-protection');"/>
+				</label>
+                <label>
+					<span>Force Gamemode ?</span>
+					<img src="images/info.png" class="infoTT" title="Force players to join in the default game mode." />
+					<input type="radio" class="input_radio" id="forcegamemodeTrue" name="force-gamemode" value="true"> Yes
+					<input type="radio" class="input_radio" id="forcegamemodeFalse" name="force-gamemode" value="false"> No
+				</label>
+                <label>
+					<span>Player Idle Timeout</span>
+					<img src="images/info.png" class="infoTT" title="If non-zero, players are kicked from the server if they are idle for more than that many minutes." />
+					<span id="player-idle-timeoutTrack" class="sliderTrack" style="width:200px; height:9px;">
+						<span id="player-idle-timeoutHandle" class="sliderHandle" style="width:19px; height:20px;">
+							<img src="images/slider-images-handle.png" />
+						</span>
+					</span>
+				    <input id="player-idle-timeout" name="player-idle-timeout" class="input_text" type="text"
+						   style="width:40px;margin-left:-130px;_margin-left:0px;" onkeyup="setSliderValue(viewDistanceSlider, this.value, 'player-idle-timeout');"/>
+				</label>
+                <label>
+					<span>Announce Achievements ?</span>
+					<img src="images/info.png" class="infoTT" title="Allows server to announce when a player gets an achievement." />
+					<input type="radio" class="input_radio" id="announceplayerachievementsTrue" name="announce-player-achievements" value="true"> Yes
+					<input type="radio" class="input_radio" id="announceplayerachievementsFalse" name="announce-player-achievements" value="false"> No
+				</label>
+                <label>
+					<span>Snooper Enabled ?</span>
+					<img src="images/info.png" class="infoTT" title="Sets whether the server sends snoop data regularly to http://snoop.minecraft.net" />
+					<input type="radio" class="input_radio" id="snooperenabledTrue" name="snooper-enabled" value="true"> Yes
+					<input type="radio" class="input_radio" id="snooperenabledFalse" name="snooper-enabled" value="false"> No
+				</label>
+                <label>
+					<span>Hardcore ?</span>
+					<img src="images/info.png" class="infoTT" title="If set to true, players will be set to spectator mode if they die." />
+					<input type="radio" class="input_radio" id="hardcoreTrue" name="hardcore" value="true"> Yes
+					<input type="radio" class="input_radio" id="hardcoreFalse" name="hardcore" value="false"> No
+				</label>
+                <label>
+					<span>Enable Command Block ?</span>
+					<img src="images/info.png" class="infoTT" title="Enables command blocks." />
+					<input type="radio" class="input_radio" id="enablecommandblockTrue" name="enable-command-block" value="true"> Yes
+					<input type="radio" class="input_radio" id="enablecommandblockFalse" name="enable-command-block" value="false"> No
 				</label>
 				<input type="hidden" id="dataConf" name="dataConf" value=""/>
 			</div>

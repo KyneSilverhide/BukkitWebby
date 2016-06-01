@@ -1,6 +1,8 @@
 var maxPlayersSlider;
 var viewDistanceSlider;
 var maxHeightSlider;
+var spawnprotectionSlider;
+var playeridletimeoutSlider;
 
 Event.observe(window, "load", function() {
 	
@@ -29,6 +31,22 @@ Event.observe(window, "load", function() {
 			$("max-build-height").value = (v*256).toFixed();
 		}
 	});
+    spawnprotectionSlider = new Control.Slider('spawn-protectionHandle', 'spawn-protectionTrack', {
+		onSlide: function(v) {
+			$("spawn-protection").value = (v*100).toFixed();
+		},
+		onChange: function(v) { 
+			$("spawn-protection").value = (v*100).toFixed();
+		}
+	});
+    playeridletimeoutSlider = new Control.Slider('player-idle-timeoutHandle', 'player-idle-timeoutTrack', {
+		onSlide: function(v) {
+			$("player-idle-timeout").value = (v*100).toFixed();
+		},
+		onChange: function(v) { 
+			$("player-idle-timeout").value = (v*100).toFixed();
+		}
+	});
 	
 	// Init tooltips
 	$$("img.infoTT").each(function(img) {
@@ -48,6 +66,10 @@ function setSliderValue(slider, value, name) {
 			slider.setValue(value/200);
 		} else if(name == "max-build-height") {
 			slider.setValue(value/256);
+        } else if(name == "spawn-protection") {
+			slider.setValue(value/100);
+        } else if(name == "player-idle-timeout") {
+			slider.setValue(value/100);
 		} else {
 			slider.setValue((value-3)/12);
 		}
@@ -70,19 +92,46 @@ function loadFields() {
 			$("gamemode" + json["gamemode"]).checked = true;
 			$("difficulty" + json["difficulty"]).checked = true;
 			
-			if(json["hellworld"] == "true") {
-				$("hellWorldTrue").checked = true;
-			} else {
-				$("hellWorldFalse").checked = true;
-			}
+			//if(json["hellworld"] == "true") {
+			//	$("hellWorldTrue").checked = true;
+			//} else {
+			//	$("hellWorldFalse").checked = true;
+			//}
 			if(json["allow-nether"] == "true") {
 				$("allowNetherTrue").checked = true;
 			} else {
 				$("allowNetherFalse").checked = true;
 			}
+            if(json["force-gamemode"] == "true") {
+				$("forcegamemodeTrue").checked = true;
+			} else {
+				$("forcegamemodeFalse").checked = true;
+			}
+            if(json["announce-player-achievements"] == "true") {
+				$("announceplayerachievementsTrue").checked = true;
+			} else {
+				$("announceplayerachievementsFalse").checked = true;
+			}
+            if(json["snooper-enabled"] == "true") {
+				$("snooperenabledTrue").checked = true;
+			} else {
+				$("snooperenabledFalse").checked = true;
+			}
+            if(json["hardcore"] == "true") {
+				$("hardcoreTrue").checked = true;
+			} else {
+				$("hardcoreFalse").checked = true;
+			}
+            if(json["enable-command-block"] == "true") {
+				$("enablecommandblockTrue").checked = true;
+			} else {
+				$("enablecommandblockFalse").checked = true;
+			}
 			setSliderValue(maxPlayersSlider, json["max-players"], 'max-players');
 			setSliderValue(viewDistanceSlider, json["view-distance"], 'view-distance');
 			setSliderValue(maxHeightSlider, json["max-build-height"], 'max-build-height');
+            setSliderValue(spawnprotectionSlider, json["spawn-protection"], 'spawn-protection');
+            setSliderValue(playeridletimeoutSlider, json["player-idle-timeout"], 'player-idle-timeout');
 			
 			if(json["online-mode"] == "true") {
 				$("onlineModeTrue").checked = true;
