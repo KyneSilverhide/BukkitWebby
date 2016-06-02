@@ -24,11 +24,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -91,7 +93,7 @@ public class RTKModuleSocket extends Thread {
 	 */
 	private synchronized WebbyLocalData handleRequest(final WebbyLocalData request) {
 		final Map<String, Object> responseParams = new HashMap<String, Object>();
-		final CommandSender sender = this.plugin.getServer().getConsoleSender();
+		final CommandSender sender = Bukkit.getConsoleSender();
 		switch(request.getRequestType()) {
 		case PING:
 			responseParams.put("DATA", true);
@@ -103,8 +105,8 @@ public class RTKModuleSocket extends Thread {
 			backupServer(sender, (String)request.getRequestParams().get("DEFAULT_WORLD_NAME"));
 			if(request.getRequestParams().containsKey("NOTIFY_RESTORE")) {
 				boolean notify = (Boolean) request.getRequestParams().get("NOTIFY_RESTORE");
-				if(notify && this.plugin.getServer().getOnlinePlayers().length > 0) {
-					this.plugin.getServer().broadcastMessage("A full server restore has been planned. The server will now be restarted.");
+				if(notify && Bukkit.getOnlinePlayers().size() > 0) {
+					Bukkit.broadcastMessage("A full server restore has been planned. The server will now be restarted.");
 				}
 			}
 			break;
@@ -118,7 +120,7 @@ public class RTKModuleSocket extends Thread {
 					LogHelper.warn("Empty or null player name given");
 				}
 				Player matchingPlayer = null;
-				for(final Player player : this.plugin.getServer().getOnlinePlayers()) {
+				for(final Player player : Bukkit.getOnlinePlayers()) {
 					if(player.getName().trim().equalsIgnoreCase(playerName.trim())) {
 						matchingPlayer = player;
 						break;
@@ -132,23 +134,23 @@ public class RTKModuleSocket extends Thread {
 			} 
 			// Real commands
 			else {
-				this.plugin.getServer().dispatchCommand(sender, command);
+				Bukkit.dispatchCommand(sender, command);
 			}
 			break;
 		case RELOAD_BUKKIT:
-			this.plugin.getServer().reload();
+			Bukkit.reload();
 			break;
 		case STOP:
-			this.plugin.getServer().shutdown();
+			Bukkit.shutdown();
 			break;
 		case SAVE_WORLDS:
 			LogHelper.info("Saving all worlds...");
-			List<World> worlds = new ArrayList<World>(this.plugin.getServer().getWorlds());
+			List<World> worlds = new ArrayList<World>(Bukkit.getWorlds());
 			for(final World world : worlds) {
 				world.save();
 			}
 			LogHelper.info("Saving all online players...");
-			Player[] players = this.plugin.getServer().getOnlinePlayers();
+			Collection<? extends Player> players = Bukkit.getOnlinePlayers();
 			for(final Player player : players) {
 				player.saveData();
 			}
@@ -162,7 +164,7 @@ public class RTKModuleSocket extends Thread {
 
 	private void getInfos(final Map<String, Object> responseParams) {
 		final List<WebbyPlayer> playerList = new ArrayList<WebbyPlayer>();
-		for(final Player player : this.plugin.getServer().getOnlinePlayers()) {
+		for(final Player player : Bukkit.getOnlinePlayers()) {
 			playerList.add(new WebbyPlayer(player.getName(), player.isOp()));
 		}
 		final Runtime runtime = Runtime.getRuntime();
@@ -172,8 +174,8 @@ public class RTKModuleSocket extends Thread {
 		final int mb = 1024*1024;
 		
 		final ServerInfos serverInfos = new ServerInfos(
-				this.plugin.getServer().getVersion(),
-				this.plugin.getServer().getMaxPlayers(),
+				Bukkit.getVersion(),
+				Bukkit.getMaxPlayers(),
 				playerList.size(),
 				playerList, freeMemory/mb, totalMemory/mb, maxMemory/mb);
 		responseParams.put("DATA", serverInfos);
@@ -182,18 +184,18 @@ public class RTKModuleSocket extends Thread {
 	private void backupServer(final CommandSender sender, final String defaultWorldName) {
 		LogHelper.info("Starting backup!");
 		// Warn users and save their stuff
-		if(this.plugin.getServer().getOnlinePlayers().length > 0) {
-			this.plugin.getServer().broadcastMessage("Server backup is starting. You may experiment some lag.");
-			for(final Player player : this.plugin.getServer().getOnlinePlayers()) {
+		if(Bukkit.getOnlinePlayers().size() > 0) {
+			Bukkit.broadcastMessage("Server backup is starting. You may experiment some lag.");
+			for(final Player player : Bukkit.getOnlinePlayers()) {
 				player.saveData();
 			}
 		}
 		// Save, then disable auto-save
-		List<World> worlds = new ArrayList<World>(this.plugin.getServer().getWorlds());
+		List<World> worlds = new ArrayList<World>(Bukkit.getWorlds());
 		for(final World world : worlds) {
 			world.save();
 		}
-		this.plugin.getServer().dispatchCommand(sender, "save-off");
+		Bukkit.dispatchCommand(sender, "save-off");
 		//Start the backup
 		final BackupMode backupMode = BackupMode.valueOf(plugin.getConfig().getString("webby.backup_mode", "SMP"));
 		if(backupMode == BackupMode.BUKKIT) {
@@ -202,7 +204,7 @@ public class RTKModuleSocket extends Thread {
 			BackupUtils.startSMPBackup(this.plugin.getServer(), defaultWorldName);
 		}
 		//Enable auto save
-		this.plugin.getServer().dispatchCommand(sender, "save-on");
+		Bukkit.dispatchCommand(sender, "save-on");
 		LogHelper.info("All backup tasks completed !");
 	}
 

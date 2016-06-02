@@ -1,6 +1,6 @@
 name: BukkitWebby
 main: com.kyne.webby.bukkit.BukkitWebbyPlugin
-version: 1.1.1
+version: 1.1.2
 author: KyneSilverhide
 database: false
 description: BukkitWebby is a small and lightweight web interface that allows you to manage and monitor your bukkit server.

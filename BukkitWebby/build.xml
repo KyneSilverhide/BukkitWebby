@@ -4,13 +4,15 @@
 	<property name="src.dir" value="src/" />
 	<property name="lib.dir" value="lib/" />
 	<property name="classes.dir" value="bin/" />
-	<property name="bukkit.plugins.dir" value="C:\Users\Kyne\Desktop\Minecraft\plugins" />
+	<!--
+    <property name="bukkit.plugins.dir" value="C:\Users\Kyne\Desktop\Minecraft\plugins" />
 	<property name="rtk.modules.dir" value="C:\Users\Kyne\Desktop\Minecraft\toolkit\modules" />
 	<property name="last.bukkit.url" value="http://dl.bukkit.org/latest-rb/bukkit.jar" />
 	
 	<target name="getBukkit">
 		<get dest="${lib.dir}" src="${last.bukkit.url}" verbose="true" />
 	</target>
+    -->
 	
 	<target name="clean">
 		<delete dir="${build.dir}" failonerror="no" verbose="true" />
@@ -38,7 +40,7 @@
 				<include name="com/kyne/webby/commons/**/*.class" />
 				<include name="plugin.yml" />
 			</fileset>
-			<zipfileset src="${lib.dir}/commons-io-2.1.jar">
+			<zipfileset src="${lib.dir}/commons-io-2.5.jar">
 				<include name="**/*.class" />
 			</zipfileset>
 		</jar>
@@ -49,22 +51,22 @@
 				<include name="com/drdanick/**/*.class" />
 				<include name="module.txt" />
 			</fileset>
-			<zipfileset src="${lib.dir}/yamlbeans-1.06.jar">
+			<zipfileset src="${lib.dir}/yamlbeans-1.09.jar">
 				<include name="**/*.class" />
 			</zipfileset>
 			<zipfileset src="${lib.dir}/bukkit.jar">
 				<include name="org/json/simple/**/*.class" />
 			</zipfileset>
-			<zipfileset src="${lib.dir}/commons-io-2.1.jar">
+			<zipfileset src="${lib.dir}/commons-io-2.5.jar">
 				<include name="**/*.class" />
 			</zipfileset>
-			<zipfileset src="${lib.dir}/commons-lang3-3.1.jar">
+			<zipfileset src="${lib.dir}/commons-lang3-3.4.jar">
 				<include name="**/*.class" />
 			</zipfileset>
 		</jar>
 		<echo>Jars créés !</echo>
 	</target>
-	
+	<!--
 	<target name="deploy">
 		<copy file="${build.dir}/BukkitWebby.jar" todir="${bukkit.plugins.dir}"/>
 		<copy file="${build.dir}/RTKWebby.jar" todir="${rtk.modules.dir}"/>
@@ -74,7 +76,7 @@
 			</fileset>
 		</copy>
 	</target>
-	
+	-->
 	<target name="release">
 		<delete dir="release" />
 		
@@ -93,6 +95,10 @@
 		</copy>
 	</target>
 
-	<target name="buildJar" depends="clean,compile,jar,deploy" />
+	<!--
+    <target name="buildJar" depends="clean,compile,jar,deploy" />
 	<target name="all" depends="getBukkit,clean,compile,jar,deploy" />
+    -->
+    <target name="buildJar" depends="clean,compile,jar" />
+	<target name="all" depends="clean,compile,jar" />
 </project>

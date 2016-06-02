@@ -195,7 +195,7 @@ public class WebbyRTKModule extends Module implements RTKListener {
 		.append(YAMLINDENT + "#Switch the backup. If set to BUKKIT, each world is expected to have its own directory. if set to SMP, a unique directory called 'your_world_name' should exists.\n")
 		.append(YAMLINDENT + "backupMode: BUKKIT\n")
 		.append(YAMLINDENT + "#Switch the log. If set to OLD, Bukkit Webby will use the server.log file. If set to NEW (default), it will look into logs/latest.log\n")
-		.append(YAMLINDENT + "backupMode: NEW\n")
+		.append(YAMLINDENT + "logMode: NEW\n")
 		.append("\n")
 		.append("rtk:\n")
 		.append(YAMLINDENT + "#RemoteToolkit port (Same as in remote.properties, default = 25561)\n")
@@ -347,7 +347,31 @@ public class WebbyRTKModule extends Module implements RTKListener {
 			}
 			randomFile.seek(startPosition);
 			while((line = randomFile.readLine()) != null) {
-				logLines.add(line);
+				logLines.add(line.replace("[0;30;22m", "")
+								 .replace("[0;34;22m", "")
+								 .replace("[0;32;22m", "")
+								 .replace("[0;36;22m", "")
+								 .replace("[0;31;22m", "")
+								 .replace("[0;35;22m", "")
+								 .replace("[0;33;22m", "")
+								 .replace("[0;37;22m", "")
+								 .replace("[0;30;1m", "")
+								 .replace("[0;34;1m", "")
+								 .replace("[0;32;1m", "")
+								 .replace("[0;36;1m", "")
+								 .replace("[0;31;1m", "")
+								 .replace("[0;35;1m", "")
+								 .replace("[0;33;1m", "")
+								 .replace("[0;37;1m", "")
+								 .replace("[m", "")
+								 .replace("[5m", "")
+								 .replace("[21m", "")
+								 .replace("[9m", "")
+								 .replace("[4m", "")
+								 .replace("[3m", "")
+								 .replace("[0;39m", "")
+								 .replace("[0m", ""));
+				
 			}
 		} catch(final IOException e) {
 			LogHelper.error("Unable to read server.log", e);
